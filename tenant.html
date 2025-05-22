@@ -4,51 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tenant Portal</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --day-bg: #ffffff;
+      --day-text: #0b1a42;
+      --night-bg: #0b1a42;
+      --night-text: #ffffff;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    body, html {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0a1a2f;
-      color: white;
-      scroll-behavior: smooth;
-    }
-
-.landing {
-  background: url('house.jpg') no-repeat center center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-    .welcome-box {
-      background-color: rgba(10, 26, 47, 0.4); /* 40% transparent background */
-      padding: 20px 40px;
-      border-radius: 12px;
-      max-width: 90%;
-    }
-
-    .welcome-text {
       font-family: 'Poppins', sans-serif;
-      font-size: 2.5rem;
-      font-weight: bold;
-      background: linear-gradient(270deg, #2af598, #009efd);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    }
+
+    body {
+      transition: background-color 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+
+    .landing {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .landing-image {
+      display: none;
+    }
+
+    /* Typing animation container */
+    .welcome-text {
+      background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      font-size: 2rem;
+      max-width: 90%;
+      z-index: 1;
+      overflow: hidden; /* hide overflow for typing effect */
       white-space: nowrap;
-      overflow: hidden;
-      animation: typing 4s steps(40, end) 1, gradientFlow 8s ease infinite;
-      border-right: 3px solid rgba(255,255,255,0.5);
+      border-right: 4px solid rgba(255,255,255,0.75);
+      animation: typing 3s steps(30, end), blinkCaret 0.75s step-end infinite;
+      user-select: none;
     }
 
     @keyframes typing {
@@ -56,10 +64,26 @@
       to { width: 100%; }
     }
 
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes blinkCaret {
+      0%, 100% { border-color: rgba(255,255,255,0.75); }
+      50% { border-color: transparent; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .sidebar {
@@ -68,11 +92,13 @@
       left: -250px;
       width: 250px;
       height: 100%;
-      background-color: #14213d;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-      transition: 0.4s;
+      background-color: rgba(11, 26, 66, 0.95);
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: left 0.3s ease;
       z-index: 1000;
-      padding-top: 60px;
     }
 
     .sidebar.open {
@@ -80,158 +106,194 @@
     }
 
     .sidebar a {
-      display: block;
+      margin: 10px 0;
       color: white;
-      padding: 16px 20px;
       text-decoration: none;
-      transition: background 0.3s;
+      font-weight: 600;
+      transition: color 0.3s;
     }
 
     .sidebar a:hover {
-      background-color: #1f2a44;
-    }
-
-    .sidebar-icon {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-      z-index: 1100;
-      background: #14213d;
-      padding: 8px 12px;
-      border-radius: 6px;
-    }
-
-    section {
-      padding: 60px 20px;
-      background-color: #0a1a2f;
-      border-top: 1px solid #1c2b3a;
-    }
-
-    section h2 {
-      margin-bottom: 20px;
-      color: #f0f0f0;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #2a9d8f;
-      display: inline-block;
-    }
-
-    .complaint-form input,
-    .complaint-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 4px;
-      background: #1c2b3a;
-      color: white;
-    }
-
-    .complaint-form button {
-      padding: 10px 20px;
-      background-color: #2a9d8f;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
-
-    .complaint-form button:hover {
-      background-color: #21867a;
+      color: #ffda77;
     }
 
     .overlay {
-      display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%;
+      top: 0;
+      left: 0;
       height: 100%;
-      z-index: 900;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 999;
     }
 
     .overlay.show {
       display: block;
     }
 
+    /* Sections styling with thin white lines between */
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeIn 1.2s ease;
+      border-top: 1px solid white;
+    }
+
+    /* No border on the first section */
+    section:first-of-type {
+      border-top: none;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    /* Make sections clickable */
+    section {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    section:hover {
+      background-color: rgba(255, 218, 119, 0.15);
+      border-top-color: #ffda77;
+    }
+
+    @media (max-width: 768px) {
+      .landing {
+        background-image: none !important;
+        background-color: transparent;
+        height: auto;
+        flex-direction: column;
+        padding-top: 60px;
+      }
+
+      .landing-image {
+        display: block;
+        width: 100%;
+        max-height: 100vh;
+        object-fit: contain;
+        z-index: 0;
+      }
+
+      .welcome-text {
+        font-size: 1.5rem;
+        margin-top: 10px;
+        backdrop-filter: none;
+        background: rgba(11, 26, 66, 0.7);
+        border-right: 3px solid rgba(255,255,255,0.75);
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="sidebar-icon" onclick="toggleSidebar()">☰</div>
+<div class="landing" id="landing">
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <img id="landingImage" class="landing-image" src="" alt="Tenant Portal Background" />
+  <div class="welcome-text" id="welcomeText">Welcome to Your Tenant Portal</div>
+</div>
 
-  <div class="sidebar" id="sidebar">
-    <a href="#rent">Rent Bills</a>
-    <a href="#eb">EB Bills</a>
-    <a href="#notifications">Notifications</a>
-    <a href="#complaint">Raise a Complaint</a>
-    <a href="#agreements">Rental Agreements</a>
-  </div>
+<div class="sidebar" id="sidebar">
+  <a href="bill.html">🏠 Rent Bills</a>
+  <a href="ebbill.html">💡 EB Bills</a>
+  <a href="notification.html">🔔 Notifications</a>
+  <a href="complaint.html">📝 Raise a Complaint</a>
+  <a href="agreements.html">📃 Rental Agreements</a>
+</div>
+<div class="overlay" id="overlay"></div>
 
-  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
-  <section class="landing">
-    <div class="welcome-box">
-      <div class="welcome-text">Welcome to Your Tenant Portal</div>
-    </div>
-  </section>
-
-<section id="rent" class="section">
-  <a href="bill.html" style="text-decoration: none; color: inherit;">
-      <h2 style="color: white;">Rent Bills</h2>
-      <p style="color: white;">Click here to view and download your rent bills.</p>
-    </div>
-  </a>
+<!-- Sections -->
+<section id="rent" data-link="bill.html">
+  <h2>Rent Bills</h2>
+  <p>Click Here to View Download your Rent Bills</p>
 </section>
 
-<section id="eb" class="section">
-  <a href="ebbill.html" style="text-decoration: none; color: inherit;">
-      <h2 style="color: white;">Electricity Bills</h2>
-      <p style="color: white;">Click here to view and download your Electricity bills.</p>
-    </div>
-  </a>
+<section id="eb" data-link="ebbill.html">
+  <h2>EB Bills</h2>
+  <p>Click Here to View Download your Electricity Board Bills</p>
 </section>
 
-<section id="notifications" class="section">
-  <a href="notification.html" style="text-decoration: none; color: inherit;">
-      <h2 style="color: white;">Notifications</h2>
-      <p style="color: white;">Important updates will be listed here.</p>
-    </div>
-  </a>
+<section id="notify" data-link="notification.html">
+  <h2>Notifications</h2>
+  <p>Important messages by the owner will appear here.</p>
 </section>
 
-  <section id="complaint">
-    <h2>Raise a Complaint</h2>
-    <form class="complaint-form">
-      <input type="text" placeholder="Your Name" required />
-      <textarea rows="4" placeholder="Describe your complaint..." required></textarea>
-      <button type="submit">Submit</button>
-    </form>
-  </section>
+<section id="complaint" data-link="complaint.html">
+  <h2>Raise a Complaint</h2>
+  <p>Fill out the form to raise any issue related to the house.</p>
+</section>
 
-  <section id="agreements">
-    <h2>Rental Agreements</h2>
-    <p>View or download your rental agreements.</p>
-  </section>
+<section id="agreements" data-link="agreements.html">
+  <h2>Rental Agreements</h2>
+  <p>Your rental agreement files will appear here for download.</p>
+</section>
 
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
+<script>
+  // Apply theme and background based on IST time
+  function applyTimeBasedTheme() {
+    const nowUTC = new Date();
+    const ISTOffset = 5.5 * 60 * 60000; // IST in ms
+    const istTime = new Date(nowUTC.getTime() + ISTOffset);
+    const hour = istTime.getHours();
 
-    function toggleSidebar() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('show');
+    const landing = document.getElementById('landing');
+    const root = document.documentElement;
+    const img = document.getElementById('landingImage');
+
+    if (hour >= 6 && hour < 18) {
+      // Day mode
+      landing.style.backgroundImage = "url('house.jpg')";
+      img.src = 'house.jpg';
+      document.body.style.backgroundColor = getComputedStyle(root).getPropertyValue('--day-bg');
+      document.body.style.color = getComputedStyle(root).getPropertyValue('--day-text');
+    } else {
+      // Night mode
+      landing.style.backgroundImage = "url('house2.jpg')";
+      img.src = 'house2.jpg';
+      document.body.style.backgroundColor = getComputedStyle(root).getPropertyValue('--night-bg');
+      document.body.style.color = getComputedStyle(root).getPropertyValue('--night-text');
     }
+  }
 
-    function closeSidebar() {
+  // Sidebar logic
+  const menuBtn = document.getElementById('menuBtn');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  menuBtn.onclick = () => {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+  };
+
+  overlay.onclick = () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  };
+
+  // Close sidebar when any sidebar link is clicked
+  const sidebarLinks = sidebar.querySelectorAll('a');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
       sidebar.classList.remove('open');
       overlay.classList.remove('show');
-    }
-
-    document.querySelectorAll('.sidebar a').forEach(link => {
-      link.addEventListener('click', closeSidebar);
     });
-  </script>
+  });
+
+  // Make sections clickable and redirect to their linked pages
+  const sections = document.querySelectorAll('section[data-link]');
+  sections.forEach(section => {
+    section.addEventListener('click', () => {
+      const url = section.getAttribute('data-link');
+      window.location.href = url;
+    });
+  });
+
+  // Apply theme on load
+  window.onload = applyTimeBasedTheme;
+</script>
+
 </body>
 </html>
