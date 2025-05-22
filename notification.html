@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notification Bar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+    }
+
+    .notification-bar {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #1e3a8a; /* Blue shade */
+      color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .notification-row {
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      align-items: center;
+    }
+
+    .notification-row:last-child {
+      border-bottom: none;
+    }
+
+    .open-btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .open-btn:hover {
+      transform: scale(1.05);
+      background-color: #2563eb;
+    }
+
+    /* Modal Popup */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+      animation: slideUp 0.4s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal h3 {
+      margin-top: 0;
+      color: #1e3a8a;
+    }
+
+    .close-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin-top: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .close-btn:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+
+<div class="notification-bar">
+  <!-- Notification Item Example -->
+  <div class="notification-row">
+    <div class="date">2025-05-12</div>
+    <div class="subject">Water Supply Interruption</div>
+    <button class="open-btn" onclick="openPopup('Water Supply Interruption', 'Water supply will be interrupted from 10 AM to 2 PM due to maintenance.')">Open</button>
+  </div>
+  <div class="notification-row">
+    <div class="date">2025-05-10</div>
+    <div class="subject">Rent Payment Reminder</div>
+    <button class="open-btn" onclick="openPopup('Rent Payment Reminder', 'Please ensure your rent is paid by the 15th of this month.')">Open</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="popupModal" class="modal" onclick="closePopup(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <h3 id="modalTitle">Subject</h3>
+    <p id="modalBody">Body content will appear here.</p>
+    <button class="close-btn" onclick="closePopup(event)">Close</button>
+  </div>
+</div>
+
+<script>
+  function openPopup(title, body) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalBody').innerText = body;
+    document.getElementById('popupModal').style.display = 'flex';
+  }
+
+  function closePopup(event) {
+    document.getElementById('popupModal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

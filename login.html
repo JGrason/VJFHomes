@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #1cb5e0, #000046, #23d5ab, #1cb5e0);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
+    }
+
+    .login-container h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      background-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .login-btn {
+      position: relative;
+      display: inline-block;
+      padding: 12px 24px;
+      background: transparent;
+      color: white;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 1;
+      transition: 0.3s ease;
+    }
+
+    .login-btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, #23d5ab, #1cb5e0, #23d5ab);
+      animation: moveLight 3s linear infinite;
+      z-index: -1;
+      opacity: 0.6;
+      transform: rotate(45deg);
+    }
+
+    @keyframes moveLight {
+      0% { transform: translate(-100%, -100%) rotate(45deg); }
+      100% { transform: translate(100%, 100%) rotate(45deg); }
+    }
+
+    .guest-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .guest-icon:hover {
+      text-decoration: underline;
+    }
+
+    @media(max-width: 500px) {
+      .login-container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="guest-icon" href="guest.html">👤</a>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" autocomplete="off" />
+    <input type="password" id="password" placeholder="Password" autocomplete="off" />
+    <br />
+    <button class="login-btn" onclick="handleLogin()">Login</button>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      if (username === "grason" && password === "Grase07#") {
+        window.location.href = "owner.html";
+      } else if (username === "tnt" && password === "1234") {
+        window.location.href = "tenant.html";
+      } else {
+        alert("Invalid credentials.");
+      }
+    }
+  </script>
+</body>
+</html>

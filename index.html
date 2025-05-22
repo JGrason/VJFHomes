@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VJF Homes</title>
+  
+  <script type="module">
+
+</script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(270deg, #1e90ff, #32cd32);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 40% 50%; }
+      50% { background-position: 90% 50%; }
+      100% { background-position: 40% 50%; }
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .typing-text {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      min-height: 60px;
+    }
+
+    .login-button {
+      position: relative;
+      padding: 15px 40px;
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .login-button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), transparent, rgba(255,255,255,0.2));
+      animation: lightMove 3s linear infinite;
+      transform: rotate(45deg);
+    }
+
+    @keyframes lightMove {
+      0% { transform: rotate(0deg) translate(-100%, -100%); }
+      100% { transform: rotate(360deg) translate(100%, 100%); }
+    }
+
+    .login-button:hover {
+      background: white;
+      color: #1e90ff;
+    }
+
+    .guest-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .guest-icon:hover {
+      text-decoration: underline;
+    }
+	
+	
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .typing-text {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="guest-icon" href="guest.html">👤</a>
+  
+  <div class="container">
+    <h1>Welcome to VJF Homes</h1>
+    <div class="typing-text" id="typing-text"></div>
+    <button class="login-button" onclick="window.location.href='login.html'">Login</button>
+  </div>
+
+  <script>
+    const text = "Manage your Rental Bills, Documents, Complaints and more with Ease.";
+    const typingEl = document.getElementById("typing-text");
+    let index = 0;
+
+    function typeText() {
+      if (index < text.length) {
+        typingEl.innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeText, 50);
+      }
+    }
+
+    window.onload = typeText;
+  </script>
+</body>
+</html>

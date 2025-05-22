@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Electricity Bills</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #001f3f; /* Dark Blue Background */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2em;
+      text-align: center;
+    }
+
+    table {
+      width: 90%;
+      max-width: 800px;
+      border-collapse: collapse;
+      background-color: #003366;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    th, td {
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #004080;
+      font-size: 1.1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #002244;
+    }
+
+    .open-btn {
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1em;
+    }
+
+    .open-btn:hover {
+      background-color: #0088ff;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00aaff;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      background-color: #003366;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #004080;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 0 15px #000;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal h2 {
+      color: #00aaff;
+    }
+
+    .modal p {
+      margin: 8px 0;
+    }
+	
+		.white-print-btn {
+  background-color: white;
+  color: #333;
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.white-print-btn:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+  color: black;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Electricity Bills</h1>
+
+  <table>
+    <tr>
+      <th>Month</th>
+      <th>Date</th>
+      <th>Open</th>
+    </tr>
+    <tr>
+      <td>April 2025</td>
+      <td>01-05-2025</td>
+      <td><button class="open-btn" onclick="openModal('April 2025', 'John Doe', '01-05-2025', '10:00 AM', 'UPI', '₹6,000')">Open</button></td>
+    </tr>
+    <tr>
+      <td>March 2025</td>
+      <td>01-04-2025</td>
+      <td><button class="open-btn" onclick="openModal('March 2025', 'John Doe', '01-04-2025', '10:00 AM', 'Cash', '₹6,000')">Open</button></td>
+    </tr>
+    <tr>
+      <td>February 2025</td>
+      <td>01-03-2025</td>
+      <td><button class="open-btn" onclick="openModal('February 2025', 'John Doe', '01-03-2025', '10:00 AM', 'Bank Transfer', '₹6,000')">Open</button></td>
+    </tr>
+  </table>
+
+  <!-- Modal -->
+  <div id="billModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="billTitle">Electricity Bill for April 2025</h2>
+      <p><strong>Name:</strong> <span id="billName"></span></p>
+      <p><strong>Date:</strong> <span id="billDate"></span></p>
+      <p><strong>Time:</strong> <span id="billTime"></span></p>
+      <p><strong>Mode of Payment:</strong> <span id="billMode"></span></p>
+      <p><strong>Amount:</strong> <span id="billAmount"></span></p>
+	  
+	  <button onclick="window.print()" class="white-print-btn">
+  📥 Download
+</button>
+
+
+    </div>
+  </div>
+
+  <script>
+    function openModal(month, name, date, time, mode, amount) {
+      document.getElementById('billModal').style.display = 'block';
+      document.getElementById('billTitle').innerText = 'Bill for ' + month;
+      document.getElementById('billName').innerText = name;
+      document.getElementById('billDate').innerText = date;
+      document.getElementById('billTime').innerText = time;
+      document.getElementById('billMode').innerText = mode;
+      document.getElementById('billAmount').innerText = amount;
+    }
+
+    function closeModal() {
+      document.getElementById('billModal').style.display = 'none';
+    }
+
+    // Close modal if clicked outside content
+    window.onclick = function(event) {
+      let modal = document.getElementById('billModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

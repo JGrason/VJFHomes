@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tenant Portal</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a1a2f;
+      color: white;
+      scroll-behavior: smooth;
+    }
+
+    .landing {
+      background: url('house.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .welcome-box {
+      background-color: rgba(10, 26, 47, 0.4); /* 40% transparent background */
+      padding: 20px 40px;
+      border-radius: 12px;
+      max-width: 90%;
+    }
+
+    .welcome-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #2af598, #009efd);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end) 1, gradientFlow 8s ease infinite;
+      border-right: 3px solid rgba(255,255,255,0.5);
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #14213d;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      transition: 0.4s;
+      z-index: 1000;
+      padding-top: 60px;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 16px 20px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #1f2a44;
+    }
+
+    .sidebar-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1100;
+      background: #14213d;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    section {
+      padding: 60px 20px;
+      background-color: #0a1a2f;
+      border-top: 1px solid #1c2b3a;
+    }
+
+    section h2 {
+      margin-bottom: 20px;
+      color: #f0f0f0;
+      font-size: 1.8rem;
+      border-bottom: 2px solid #2a9d8f;
+      display: inline-block;
+    }
+
+    .complaint-form input,
+    .complaint-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 4px;
+      background: #1c2b3a;
+      color: white;
+    }
+
+    .complaint-form button {
+      padding: 10px 20px;
+      background-color: #2a9d8f;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .complaint-form button:hover {
+      background-color: #21867a;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 900;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-icon" onclick="toggleSidebar()">☰</div>
+
+  <div class="sidebar" id="sidebar">
+    <a href="#rent">Rent Bills</a>
+    <a href="#eb">EB Bills</a>
+    <a href="#notifications">Notifications</a>
+    <a href="#complaint">Raise a Complaint</a>
+    <a href="#agreements">Rental Agreements</a>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <section class="landing">
+    <div class="welcome-box">
+      <div class="welcome-text">Welcome to Your Tenant Portal</div>
+    </div>
+  </section>
+
+<section id="rent" class="section">
+  <a href="bill.html" style="text-decoration: none; color: inherit;">
+      <h2 style="color: white;">Rent Bills</h2>
+      <p style="color: white;">Click here to view and download your rent bills.</p>
+    </div>
+  </a>
+</section>
+
+<section id="eb" class="section">
+  <a href="ebbill.html" style="text-decoration: none; color: inherit;">
+      <h2 style="color: white;">Electricity Bills</h2>
+      <p style="color: white;">Click here to view and download your Electricity bills.</p>
+    </div>
+  </a>
+</section>
+
+<section id="notifications" class="section">
+  <a href="notification.html" style="text-decoration: none; color: inherit;">
+      <h2 style="color: white;">Notifications</h2>
+      <p style="color: white;">Important updates will be listed here.</p>
+    </div>
+  </a>
+</section>
+
+  <section id="complaint">
+    <h2>Raise a Complaint</h2>
+    <form class="complaint-form">
+      <input type="text" placeholder="Your Name" required />
+      <textarea rows="4" placeholder="Describe your complaint..." required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <section id="agreements">
+    <h2>Rental Agreements</h2>
+    <p>View or download your rental agreements.</p>
+  </section>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+  </script>
+</body>
+</html>

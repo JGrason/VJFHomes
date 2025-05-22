@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guest Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    /* LANDING SECTION */
+    .landing {
+      height: 100vh;
+      background: url('house.jpg') center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      background: rgba(15, 23, 42, 0.4); /* 40% transparent */
+      padding: 40px;
+      border-radius: 16px;
+    }
+
+    .typing-text {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4, #9333ea);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #93c5fd;
+      animation: typing 3s steps(30, end) forwards;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    /* GALLERY SECTION */
+    .gallery {
+      background-color: #1e293b;
+    }
+
+    .gallery h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #60a5fa;
+    }
+
+    .gallery-container {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px;
+      animation: scrollGallery 20s linear infinite;
+    }
+
+    .gallery-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-container img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+
+    @keyframes scrollGallery {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* RENTAL REQUEST SECTION */
+    .rental-request {
+      background-color: #0f172a;
+    }
+
+    .rental-request h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #1e293b;
+      color: #f1f5f9;
+      font-size: 1rem;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      padding: 12px;
+      background: linear-gradient(to right, #3b82f6, #06b6d4);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #2563eb, #0ea5e9);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LANDING SECTION -->
+  <section class="landing">
+    <div class="overlay">
+      <h1 class="typing-text">Welcome to Our Rental Homes</h1>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="gallery" id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-container">
+      <img src="image1.jpg" alt="Image 1">
+      <img src="image2.jpg" alt="Image 2">
+      <img src="image3.jpg" alt="Image 3">
+      <img src="image1.jpg" alt="Image 4"> <!-- Repeat for continuous scroll -->
+      <img src="image2.jpg" alt="Image 5">
+      <img src="image3.jpg" alt="Image 6">
+    </div>
+  </section>
+
+  <!-- RENTAL REQUEST SECTION -->
+
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert("Request submitted! We'll contact you soon.");
+      event.target.reset();
+    }
+  </script>
+
+</body>
+</html>
